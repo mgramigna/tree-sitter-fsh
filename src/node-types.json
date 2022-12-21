@@ -95,7 +95,17 @@
   {
     "type": "alias_name",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "url",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "bool",
@@ -274,12 +284,32 @@
   {
     "type": "code_system",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "url",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "code_value",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "url",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "codesystem",
@@ -588,6 +618,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "fsh_comment",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "id",
@@ -1311,7 +1346,17 @@
   {
     "type": "rule_set_reference",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "url",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "rule_set_rule",
@@ -1437,7 +1482,17 @@
   {
     "type": "sequence",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "url",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "severity",
@@ -1955,6 +2010,14 @@
     "named": false
   },
   {
+    "type": "/*",
+    "named": false
+  },
+  {
+    "type": "//",
+    "named": false
+  },
+  {
     "type": ":",
     "named": false
   },
@@ -2193,6 +2256,10 @@
   {
     "type": "true",
     "named": false
+  },
+  {
+    "type": "url",
+    "named": true
   },
   {
     "type": "valueset",

@@ -1,7 +1,7 @@
 module.exports = grammar({
   name: "fsh",
 
-  // extras: ($) => [$.comment, /[\s\p{Zs}\uFEFF\u2060\u200B]/],
+  extras: ($) => [$.fsh_comment, /[\s\p{Zs}\uFEFF\u2060\u200B]/],
 
   // TODO: look at sequence conflict
   // TODO: look at code insert rule conflict
@@ -361,7 +361,11 @@ module.exports = grammar({
 
     code_string: ($) => seq($.code, optional($.string)),
 
-    sequence: () => repeat1(/[^ \t\r\n\f\u00A0]/),
+    sequence: ($) =>
+      choice(
+        repeat1(/[^ \t\r\n\f\u00A0]/),
+        alias(/https?:\/\/[a-zA-Z0-9\.\-\/]+/, $.url)
+      ),
 
     caret_path: ($) => seq(token("^"), $.sequence),
 
@@ -515,9 +519,7 @@ module.exports = grammar({
 
     /* Comments */
 
-    comment: () =>
-      token(
-        choice(seq("//", /.*/), seq("/*", /[^*]*\*+([^/*][^*]*\*+)*/, "/"))
-      ),
+    fsh_comment: () =>
+      choice(seq("//", /.*/), seq("/*", /[^*]*\*+([^/*][^*]*\*+)*/, "/")),
   },
 });
