@@ -93,10 +93,6 @@
             {
               "type": "SYMBOL",
               "name": "sequence"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "code"
             }
           ]
         }
@@ -2050,7 +2046,7 @@
           "type": "ALIAS",
           "content": {
             "type": "PATTERN",
-            "value": "https?:\\/\\/[a-zA-Z0-9\\.\\-\\/]+"
+            "value": "https?:\\/\\/[a-zA-Z0-9\\.\\-\\/#]+"
           },
           "named": true,
           "value": "url"

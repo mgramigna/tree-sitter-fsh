@@ -82,10 +82,6 @@
           "named": true
         },
         {
-          "type": "code",
-          "named": true
-        },
-        {
           "type": "sequence",
           "named": true
         }

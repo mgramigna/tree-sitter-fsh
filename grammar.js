@@ -41,7 +41,7 @@ module.exports = grammar({
         token(":"),
         alias($.sequence, $.alias_name),
         token("="),
-        choice($.sequence, $.code)
+        choice($.sequence)
       ),
 
     profile: ($) =>
@@ -364,7 +364,7 @@ module.exports = grammar({
     sequence: ($) =>
       choice(
         repeat1(/[^ \t\r\n\f\u00A0]/),
-        alias(/https?:\/\/[a-zA-Z0-9\.\-\/]+/, $.url)
+        alias(/https?:\/\/[a-zA-Z0-9\.\-\/#]+/, $.url)
       ),
 
     caret_path: ($) => seq(token("^"), $.sequence),
