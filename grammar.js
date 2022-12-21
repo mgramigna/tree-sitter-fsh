@@ -156,8 +156,8 @@ module.exports = grammar({
 
     vs_rule: ($) => choice($.caret_value_rule, $.vs_component, $.insert_rule),
 
-    // TODO: concept |  codeInsertRule;
-    cs_rule: ($) => choice($.code_caret_value_rule),
+    // TODO: concept
+    cs_rule: ($) => choice($.code_caret_value_rule, $.code_insert_rule),
 
     instance_rule: ($) =>
       choice($.fixed_value_rule, $.path_rule, $.insert_rule),
@@ -169,6 +169,10 @@ module.exports = grammar({
     // codeInsertRule:     STAR CODE* KW_INSERT (RULESET_REFERENCE | PARAM_RULESET_REFERENCE);
     // addCRElementRule:   STAR path CARD flag* KW_CONTENTREFERENCE (SEQUENCE | CODE) STRING (STRING | MULTILINE_STRING)?;
     cardinality_rule: ($) => seq("*", $.name, $.cardinality, repeat($.flag)),
+
+    // TODO: look at pushMode in grammar for insert keyword
+    // TODO: (RULESET_REFERENCE | PARAM_RULESET_REFERENCE);
+    code_insert_rule: ($) => seq("*", repeat($.code), "insert"),
 
     // TODO: look at pushMode in grammar for insert keyword
     // TODO: (RULESET_REFERENCE | PARAM_RULESET_REFERENCE);

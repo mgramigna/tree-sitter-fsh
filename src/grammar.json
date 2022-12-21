@@ -825,6 +825,10 @@
         {
           "type": "SYMBOL",
           "name": "code_caret_value_rule"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "code_insert_rule"
         }
       ]
     },
@@ -883,6 +887,26 @@
             "type": "SYMBOL",
             "name": "flag"
           }
+        }
+      ]
+    },
+    "code_insert_rule": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "*"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "code"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "insert"
         }
       ]
     },
