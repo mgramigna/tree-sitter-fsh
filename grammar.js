@@ -72,11 +72,13 @@ module.exports = grammar({
     resource: ($) => seq("Resource", token(":"), $.name, repeat($.sd_metadata)),
 
     /* Metadata */
-    // TODO: title description, expression, xpath, target
+    // TODO: expression, xpath, target
 
-    // TODO: title, description
-    sd_metadata: ($) => choice($.parent, $.id),
+    sd_metadata: ($) => choice($.parent, $.id, $.title, $.description),
     parent: ($) => seq("Parent", token(":"), $.name),
+    title: ($) => seq("Title", token(":"), $.string),
+    description: ($) =>
+      seq("Description", token(":"), choice($.string, $.multiline_string)),
     id: ($) => seq("Id", token(":"), $.name),
     severity: ($) => seq("Severity", token(":"), $.code),
     instance_of: ($) => seq("InstanceOf", token(":"), $.name),
@@ -141,18 +143,42 @@ module.exports = grammar({
         optional(choice(/[0-9]+/, token(prec(1, "*"))))
       ),
 
-    // TODO: escaped strings
     string: ($) =>
-      seq('"', repeat(choice($.double_quote_string_fragment)), '"'),
+      seq(
+        '"',
+        repeat(choice($.double_quote_string_fragment, $.escape_sequence)),
+        '"'
+      ),
+
+    multiline_string: ($) =>
+      seq(
+        '"""',
+        repeat(choice($.double_quote_string_fragment, $.escape_sequence)),
+        '"""'
+      ),
 
     double_quote_string_fragment: () => token.immediate(prec(1, /[^"\\]+/)),
+
+    escape_sequence: () =>
+      token.immediate(
+        seq(
+          "\\",
+          choice(
+            /[^xu0-7]/,
+            /[0-7]{1,3}/,
+            /x[0-9a-fA-F]{2}/,
+            /u[0-9a-fA-F]{4}/,
+            /u{[0-9a-fA-F]+}/
+          )
+        )
+      ),
 
     path: ($) => choice($.sequence, "system"),
     strength: () =>
       seq("(", choice("example", "preferred", "extensible", "required"), ")"),
 
-    // TODO: | MULTILINE_STRING | NUMBER | DATETIME | TIME | reference | canonical | code | quantity | ratio | bool
-    value: ($) => choice($.name, $.string),
+    // TODO:  NUMBER | DATETIME | TIME | reference | canonical | code | quantity | ratio | bool
+    value: ($) => choice($.name, $.string, $.multiline_string),
 
     // TODO: flag
     item: ($) => seq($.name, optional(seq("named", $.name)), $.cardinality),

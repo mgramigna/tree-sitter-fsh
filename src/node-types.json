@@ -153,6 +153,25 @@
     }
   },
   {
+    "type": "description",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "multiline_string",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "doc",
     "named": true,
     "fields": {},
@@ -344,6 +363,25 @@
     }
   },
   {
+    "type": "multiline_string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "double_quote_string_fragment",
+          "named": true
+        },
+        {
+          "type": "escape_sequence",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "name",
     "named": true,
     "fields": {},
@@ -473,11 +511,19 @@
       "required": true,
       "types": [
         {
+          "type": "description",
+          "named": true
+        },
+        {
           "type": "id",
           "named": true
         },
         {
           "type": "parent",
+          "named": true
+        },
+        {
+          "type": "title",
           "named": true
         }
       ]
@@ -543,6 +589,25 @@
         {
           "type": "double_quote_string_fragment",
           "named": true
+        },
+        {
+          "type": "escape_sequence",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "title",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
         }
       ]
     }
@@ -555,6 +620,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "multiline_string",
+          "named": true
+        },
         {
           "type": "name",
           "named": true
@@ -609,6 +678,10 @@
     "named": false
   },
   {
+    "type": "\"\"\"",
+    "named": false
+  },
+  {
     "type": "#",
     "named": false
   },
@@ -642,6 +715,10 @@
   },
   {
     "type": "CodeSystem",
+    "named": false
+  },
+  {
+    "type": "Description",
     "named": false
   },
   {
@@ -693,6 +770,10 @@
     "named": false
   },
   {
+    "type": "Title",
+    "named": false
+  },
+  {
     "type": "Usage",
     "named": false
   },
@@ -709,11 +790,19 @@
     "named": false
   },
   {
+    "type": "comment",
+    "named": true
+  },
+  {
     "type": "contains",
     "named": false
   },
   {
     "type": "double_quote_string_fragment",
+    "named": true
+  },
+  {
+    "type": "escape_sequence",
     "named": true
   },
   {

@@ -1,3 +1,1 @@
-Profile: profname
-Id: mcode-cds
-* asdf
+Profile:      asdf
