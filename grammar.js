@@ -2,7 +2,9 @@ module.exports = grammar({
   name: "fsh",
 
   // extras: ($) => [$.comment, /[\s\p{Zs}\uFEFF\u2060\u200B]/],
-  conflicts: ($) => [[$.path, $.name]],
+
+  // TODO: look at sequence conflict
+  conflicts: ($) => [[$.path, $.name], [$.sequence]],
 
   rules: {
     // TODO:  ruleSet | paramRuleSet
@@ -153,7 +155,7 @@ module.exports = grammar({
     lr_rule: ($) => choice($.sd_rule, $.add_element_rule),
 
     // TODO: vsComponent | insertRule;
-    vs_rule: ($) => choice($.caret_value_rule),
+    vs_rule: ($) => choice($.caret_value_rule, $.vs_component),
 
     // TODO: concept |  codeInsertRule;
     cs_rule: ($) => choice($.code_caret_value_rule),
@@ -218,6 +220,58 @@ module.exports = grammar({
         optional(choice($.string, $.multiline_string))
       ),
 
+    /* ValueSet Components */
+
+    vs_component: ($) =>
+      seq(
+        "*",
+        optional(choice("include", "exclude")),
+        choice($.vs_concept_component, $.vs_filter_component)
+      ),
+
+    vs_concept_component: ($) =>
+      choice(
+        seq($.code_string, optional($.vs_component_from)),
+        seq(
+          repeat1(seq($.code_string, "and")),
+          $.code_string,
+          $.vs_component_from
+        )
+      ),
+
+    vs_filter_component: ($) =>
+      seq(
+        "codes",
+        $.vs_component_from,
+        optional(seq("where", $.vs_filter_list))
+      ),
+
+    vs_component_from: ($) =>
+      seq(
+        "from",
+        choice(
+          seq($.vs_from_system, optional(seq("and", $.vs_from_valueset))),
+          seq($.vs_from_valueset, optional(seq("and", $.vs_from_system)))
+        )
+      ),
+
+    vs_from_system: ($) => seq("system", $.name),
+
+    // TODO: should this be prec.left?
+    vs_from_valueset: ($) =>
+      prec.left(1, seq("valueset", $.name, repeat(seq("and", $.name)))),
+
+    vs_filter_list: ($) =>
+      seq($.vs_filter_definition, repeat(seq("and", $.vs_filter_definition))),
+
+    vs_filter_definition: ($) =>
+      seq($.name, $.vs_filter_operator, optional($.vs_filter_value)),
+
+    vs_filter_operator: ($) => choice("=", $.sequence),
+
+    // TODO: REGEX
+    vs_filter_value: ($) => choice($.code_string, "true", "false", $.string),
+
     //TODO: CONCEPT_STR
     code: ($) =>
       seq(
@@ -225,6 +279,8 @@ module.exports = grammar({
         token("#"),
         alias(choice($.sequence), $.code_value)
       ),
+
+    code_string: ($) => seq($.code, optional($.string)),
 
     /* Misc */
 
@@ -316,7 +372,7 @@ module.exports = grammar({
         $.name,
         $.string,
         $.multiline_string,
-        seq($.code, optional($.string)),
+        $.code_string,
         $.datetime,
         $.time,
         $.ratio,

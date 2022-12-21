@@ -191,6 +191,25 @@
     }
   },
   {
+    "type": "code_string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "code",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "code_system",
     "named": true,
     "fields": {}
@@ -1233,7 +1252,7 @@
           "named": true
         },
         {
-          "type": "code",
+          "type": "code_string",
           "named": true
         },
         {
@@ -1322,6 +1341,184 @@
     }
   },
   {
+    "type": "vs_component",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "vs_concept_component",
+          "named": true
+        },
+        {
+          "type": "vs_filter_component",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "vs_component_from",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "vs_from_system",
+          "named": true
+        },
+        {
+          "type": "vs_from_valueset",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "vs_concept_component",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "code_string",
+          "named": true
+        },
+        {
+          "type": "vs_component_from",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "vs_filter_component",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "vs_component_from",
+          "named": true
+        },
+        {
+          "type": "vs_filter_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "vs_filter_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "name",
+          "named": true
+        },
+        {
+          "type": "vs_filter_operator",
+          "named": true
+        },
+        {
+          "type": "vs_filter_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "vs_filter_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "vs_filter_definition",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "vs_filter_operator",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "sequence",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "vs_filter_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "code_string",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "vs_from_system",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "vs_from_valueset",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "vs_metadata",
     "named": true,
     "fields": {},
@@ -1354,6 +1551,10 @@
       "types": [
         {
           "type": "caret_value_rule",
+          "named": true
+        },
+        {
+          "type": "vs_component",
           "named": true
         }
       ]
@@ -1547,6 +1748,10 @@
     "named": false
   },
   {
+    "type": "codes",
+    "named": false
+  },
+  {
     "type": "contains",
     "named": false
   },
@@ -1571,6 +1776,10 @@
     "named": false
   },
   {
+    "type": "exclude",
+    "named": false
+  },
+  {
     "type": "extensible",
     "named": false
   },
@@ -1580,6 +1789,10 @@
   },
   {
     "type": "from",
+    "named": false
+  },
+  {
+    "type": "include",
     "named": false
   },
   {
@@ -1620,6 +1833,14 @@
   },
   {
     "type": "true",
+    "named": false
+  },
+  {
+    "type": "valueset",
+    "named": false
+  },
+  {
+    "type": "where",
     "named": false
   },
   {
