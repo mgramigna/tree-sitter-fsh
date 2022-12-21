@@ -45,6 +45,10 @@
           {
             "type": "SYMBOL",
             "name": "resource"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "rule_set"
           }
         ]
       }
@@ -389,6 +393,38 @@
           "content": {
             "type": "SYMBOL",
             "name": "lr_rule"
+          }
+        }
+      ]
+    },
+    "rule_set": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "RuleSet"
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": ":"
+          }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "sequence"
+          },
+          "named": true,
+          "value": "rule_set_reference"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "rule_set_rule"
           }
         }
       ]
@@ -741,6 +777,43 @@
         {
           "type": "SYMBOL",
           "name": "string"
+        }
+      ]
+    },
+    "rule_set_rule": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "sd_rule"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "add_element_rule"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "add_cre_element_rule"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "concept"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "code_caret_value_rule"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "code_insert_rule"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "vs_component"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "mapping_rule"
         }
       ]
     },
@@ -2633,6 +2706,19 @@
     [
       "value",
       "name"
+    ],
+    [
+      "insert_rule",
+      "code_insert_rule"
+    ],
+    [
+      "code_insert_rule",
+      "code_string"
+    ],
+    [
+      "code_insert_rule",
+      "concept",
+      "code_string"
     ]
   ],
   "precedences": [],

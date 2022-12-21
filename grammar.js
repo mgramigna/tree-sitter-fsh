@@ -4,10 +4,18 @@ module.exports = grammar({
   // extras: ($) => [$.comment, /[\s\p{Zs}\uFEFF\u2060\u200B]/],
 
   // TODO: look at sequence conflict
-  conflicts: ($) => [[$.path, $.name], [$.sequence], [$.value, $.name]],
+  // TODO: look at code insert rule conflict
+  conflicts: ($) => [
+    [$.path, $.name],
+    [$.sequence],
+    [$.value, $.name],
+    [$.insert_rule, $.code_insert_rule],
+    [$.code_insert_rule, $.code_string],
+    [$.code_insert_rule, $.concept, $.code_string],
+  ],
 
   rules: {
-    // TODO:  ruleSet | paramRuleSet
+    // TODO:  paramRuleSet
     doc: ($) =>
       repeat(
         choice(
@@ -20,7 +28,8 @@ module.exports = grammar({
           $.codesystem,
           $.mapping,
           $.logical,
-          $.resource
+          $.resource,
+          $.rule_set
         )
       ),
 
@@ -110,6 +119,14 @@ module.exports = grammar({
         repeat($.lr_rule)
       ),
 
+    rule_set: ($) =>
+      seq(
+        "RuleSet",
+        token(":"),
+        alias($.sequence, $.rule_set_reference),
+        repeat1($.rule_set_rule)
+      ),
+
     /* Metadata */
 
     sd_metadata: ($) => choice($.parent, $.id, $.title, $.description),
@@ -121,6 +138,8 @@ module.exports = grammar({
     cs_metadata: ($) => choice($.id, $.title, $.description),
     mapping_metadata: ($) =>
       choice($.id, $.source, $.target, $.description, $.title),
+
+    /** Metadata Fields **/
 
     description: ($) =>
       seq("Description", token(":"), choice($.string, $.multiline_string)),
@@ -136,6 +155,18 @@ module.exports = grammar({
     xpath: ($) => seq("XPath", token(":"), $.string),
 
     /* Rules */
+
+    rule_set_rule: ($) =>
+      choice(
+        $.sd_rule,
+        $.add_element_rule,
+        $.add_cre_element_rule,
+        $.concept,
+        $.code_caret_value_rule,
+        $.code_insert_rule,
+        $.vs_component,
+        $.mapping_rule
+      ),
 
     sd_rule: ($) =>
       choice(
@@ -156,7 +187,6 @@ module.exports = grammar({
 
     vs_rule: ($) => choice($.caret_value_rule, $.vs_component, $.insert_rule),
 
-    // TODO: concept
     cs_rule: ($) =>
       choice($.code_caret_value_rule, $.code_insert_rule, $.concept),
 
