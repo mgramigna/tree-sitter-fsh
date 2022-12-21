@@ -1,5 +1,40 @@
 [
   {
+    "type": "add_cre_element_rule",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cardinality",
+          "named": true
+        },
+        {
+          "type": "code",
+          "named": true
+        },
+        {
+          "type": "multiline_string",
+          "named": true
+        },
+        {
+          "type": "path",
+          "named": true
+        },
+        {
+          "type": "sequence",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "add_element_rule",
     "named": true,
     "fields": {},
@@ -706,6 +741,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "add_cre_element_rule",
+          "named": true
+        },
         {
           "type": "add_element_rule",
           "named": true
@@ -1803,6 +1842,10 @@
   },
   {
     "type": "contains",
+    "named": false
+  },
+  {
+    "type": "contentReference",
     "named": false
   },
   {

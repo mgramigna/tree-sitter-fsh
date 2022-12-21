@@ -799,6 +799,10 @@
         {
           "type": "SYMBOL",
           "name": "add_element_rule"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "add_cre_element_rule"
         }
       ]
     },
@@ -887,6 +891,65 @@
             "type": "SYMBOL",
             "name": "flag"
           }
+        }
+      ]
+    },
+    "add_cre_element_rule": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "*"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "path"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cardinality"
+        },
+        {
+          "type": "STRING",
+          "value": "contentReference"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "sequence"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "code"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "string"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "multiline_string"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
