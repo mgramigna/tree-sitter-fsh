@@ -209,13 +209,23 @@ module.exports = grammar({
         optional(choice($.string, $.multiline_string))
       ),
 
-    // TODO: look at pushMode in grammar for insert keyword
-    // TODO: (RULESET_REFERENCE | PARAM_RULESET_REFERENCE);
-    code_insert_rule: ($) => seq("*", repeat($.code), "insert"),
+    // TODO: PARAM_RULESET_REFERENCE escape characters
+    code_insert_rule: ($) =>
+      seq(
+        "*",
+        repeat($.code),
+        "insert",
+        choice(alias($.sequence, $.rule_set_reference))
+      ),
 
-    // TODO: look at pushMode in grammar for insert keyword
-    // TODO: (RULESET_REFERENCE | PARAM_RULESET_REFERENCE);
-    insert_rule: ($) => seq("*", optional($.path), "insert"),
+    // TODO: PARAM_RULESET_REFERENCE escape characters
+    insert_rule: ($) =>
+      seq(
+        "*",
+        optional($.path),
+        "insert",
+        choice(alias($.sequence, $.rule_set_reference))
+      ),
 
     valueset_rule: ($) =>
       seq("*", $.path, "from", $.name, optional($.strength)),

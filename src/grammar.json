@@ -1047,6 +1047,20 @@
         {
           "type": "STRING",
           "value": "insert"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "sequence"
+              },
+              "named": true,
+              "value": "rule_set_reference"
+            }
+          ]
         }
       ]
     },
@@ -1072,6 +1086,20 @@
         {
           "type": "STRING",
           "value": "insert"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "sequence"
+              },
+              "named": true,
+              "value": "rule_set_reference"
+            }
+          ]
         }
       ]
     },
