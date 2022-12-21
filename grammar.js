@@ -1,6 +1,8 @@
 module.exports = grammar({
   name: "fsh",
 
+  extras: ($) => [$.comment, /[\s\p{Zs}\uFEFF\u2060\u200B]/],
+
   rules: {
     // TODO:  ruleSet | paramRuleSet
     doc: ($) =>
@@ -154,5 +156,11 @@ module.exports = grammar({
 
     // TODO: flag
     item: ($) => seq($.name, optional(seq("named", $.name)), $.cardinality),
+
+    /* Comments */
+    comment: () =>
+      token(
+        choice(seq("//", /.*/), seq("/*", /[^*]*\*+([^/*][^*]*\*+)*/, "/"))
+      ),
   },
 });
