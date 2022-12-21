@@ -293,6 +293,29 @@
     }
   },
   {
+    "type": "concept",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "code",
+          "named": true
+        },
+        {
+          "type": "multiline_string",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "contains_rule",
     "named": true,
     "fields": {},
@@ -348,6 +371,10 @@
         },
         {
           "type": "code_insert_rule",
+          "named": true
+        },
+        {
+          "type": "concept",
           "named": true
         }
       ]

@@ -157,7 +157,8 @@ module.exports = grammar({
     vs_rule: ($) => choice($.caret_value_rule, $.vs_component, $.insert_rule),
 
     // TODO: concept
-    cs_rule: ($) => choice($.code_caret_value_rule, $.code_insert_rule),
+    cs_rule: ($) =>
+      choice($.code_caret_value_rule, $.code_insert_rule, $.concept),
 
     instance_rule: ($) =>
       choice($.fixed_value_rule, $.path_rule, $.insert_rule),
@@ -286,6 +287,8 @@ module.exports = grammar({
     // TODO: REGEX
     vs_filter_value: ($) => choice($.code_string, "true", "false", $.string),
 
+    /* Misc */
+
     //TODO: CONCEPT_STR
     code: ($) =>
       seq(
@@ -294,9 +297,15 @@ module.exports = grammar({
         alias(choice($.sequence), $.code_value)
       ),
 
-    code_string: ($) => seq($.code, optional($.string)),
+    concept: ($) =>
+      seq(
+        "*",
+        repeat1($.code),
+        optional($.string),
+        optional(choice($.string, $.multiline_string))
+      ),
 
-    /* Misc */
+    code_string: ($) => seq($.code, optional($.string)),
 
     sequence: () => repeat1(/[^ \t\r\n\f\u00A0]/),
 

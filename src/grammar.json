@@ -833,6 +833,10 @@
         {
           "type": "SYMBOL",
           "name": "code_insert_rule"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "concept"
         }
       ]
     },
@@ -1801,6 +1805,55 @@
           },
           "named": true,
           "value": "code_value"
+        }
+      ]
+    },
+    "concept": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "*"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "code"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "string"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "multiline_string"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
