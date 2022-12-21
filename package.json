@@ -1,0 +1,29 @@
+{
+  "name": "tree-sitter-fsh",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bindings/node",
+  "scripts": {
+    "generate": "tree-sitter generate",
+    "highlight": "tree-sitter highlight",
+    "parse": "tree-sitter parse",
+    "test": "tree-sitter test"
+  },
+  "keywords": [],
+  "author": "mgramigna",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "nan": "^2.16.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.20.7"
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.fsh",
+      "file-types": [
+        "fsh"
+      ]
+    }
+  ]
+}

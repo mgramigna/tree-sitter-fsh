@@ -1,0 +1,23 @@
+=======
+Aliases
+=======
+
+Alias: name = system#code
+Alias: name = #code
+Alias: name = code
+
+---
+
+(doc
+  (alias
+    (alias_name)
+    (code 
+      (code_system)
+      (code_value)))
+  (alias
+      (alias_name)
+      (code 
+        (code_value)))
+  (alias
+      (alias_name)
+      (sequence)))
