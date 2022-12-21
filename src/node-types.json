@@ -485,6 +485,21 @@
     }
   },
   {
+    "type": "insert_rule",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "path",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "instance",
     "named": true,
     "fields": {},
@@ -559,6 +574,10 @@
       "types": [
         {
           "type": "fixed_value_rule",
+          "named": true
+        },
+        {
+          "type": "insert_rule",
           "named": true
         },
         {
@@ -710,6 +729,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "insert_rule",
+          "named": true
+        },
         {
           "type": "mapping_rule",
           "named": true
@@ -1082,6 +1105,10 @@
         },
         {
           "type": "flag_rule",
+          "named": true
+        },
+        {
+          "type": "insert_rule",
           "named": true
         },
         {
@@ -1554,6 +1581,10 @@
           "named": true
         },
         {
+          "type": "insert_rule",
+          "named": true
+        },
+        {
           "type": "vs_component",
           "named": true
         }
@@ -1793,6 +1824,10 @@
   },
   {
     "type": "include",
+    "named": false
+  },
+  {
+    "type": "insert",
     "named": false
   },
   {

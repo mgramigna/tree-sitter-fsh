@@ -782,6 +782,10 @@
         {
           "type": "SYMBOL",
           "name": "only_rule"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "insert_rule"
         }
       ]
     },
@@ -808,6 +812,10 @@
         {
           "type": "SYMBOL",
           "name": "vs_component"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "insert_rule"
         }
       ]
     },
@@ -830,6 +838,10 @@
         {
           "type": "SYMBOL",
           "name": "path_rule"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "insert_rule"
         }
       ]
     },
@@ -843,6 +855,10 @@
         {
           "type": "SYMBOL",
           "name": "path_rule"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "insert_rule"
         }
       ]
     },
@@ -867,6 +883,31 @@
             "type": "SYMBOL",
             "name": "flag"
           }
+        }
+      ]
+    },
+    "insert_rule": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "*"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "path"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "insert"
         }
       ]
     },
