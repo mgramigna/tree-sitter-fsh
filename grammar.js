@@ -1,7 +1,7 @@
 module.exports = grammar({
   name: "fsh",
 
-  extras: ($) => [$.comment, /[\s\p{Zs}\uFEFF\u2060\u200B]/],
+  // extras: ($) => [$.comment, /[\s\p{Zs}\uFEFF\u2060\u200B]/],
 
   rules: {
     // TODO:  ruleSet | paramRuleSet
@@ -177,8 +177,14 @@ module.exports = grammar({
     strength: () =>
       seq("(", choice("example", "preferred", "extensible", "required"), ")"),
 
-    // TODO:  NUMBER | DATETIME | TIME | reference | canonical | code | quantity | ratio | bool
-    value: ($) => choice($.name, $.string, $.multiline_string),
+    // TODO:  NUMBER | DATETIME | TIME | reference | canonical | quantity | ratio | bool
+    value: ($) =>
+      choice(
+        $.name,
+        $.string,
+        $.multiline_string,
+        seq($.code, optional($.string))
+      ),
 
     // TODO: flag
     item: ($) => seq($.name, optional(seq("named", $.name)), $.cardinality),

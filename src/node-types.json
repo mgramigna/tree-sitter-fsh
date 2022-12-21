@@ -617,9 +617,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "code",
+          "named": true
+        },
         {
           "type": "multiline_string",
           "named": true
@@ -788,10 +792,6 @@
   {
     "type": "and",
     "named": false
-  },
-  {
-    "type": "comment",
-    "named": true
   },
   {
     "type": "contains",
