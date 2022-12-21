@@ -336,8 +336,8 @@ module.exports = grammar({
 
     vs_filter_operator: ($) => choice("=", $.sequence),
 
-    // TODO: REGEX
-    vs_filter_value: ($) => choice($.code_string, "true", "false", $.string),
+    vs_filter_value: ($) =>
+      choice($.code_string, "true", "false", $.string, $.regex),
 
     /* Misc */
 
@@ -486,7 +486,33 @@ module.exports = grammar({
     param_rule_set_reference: ($) =>
       seq($.sequence, "(", $.param_rule_set_params, ")"),
 
+    regex: ($) => seq("/", $.regex_pattern, token.immediate("/")),
+
+    regex_pattern: () =>
+      token.immediate(
+        prec(
+          -1,
+          repeat1(
+            choice(
+              seq(
+                "[",
+                repeat(
+                  choice(
+                    seq("\\", /./), // escaped character
+                    /[^\]\n\\]/ // any character besides ']' or '\n'
+                  )
+                ),
+                "]"
+              ), // square-bracket-delimited character class
+              seq("\\", /./), // escaped character
+              /[^/\\\[\n]/ // any character besides '[', '\', '/', '\n'
+            )
+          )
+        )
+      ),
+
     /* Comments */
+
     comment: () =>
       token(
         choice(seq("//", /.*/), seq("/*", /[^*]*\*+([^/*][^*]*\*+)*/, "/"))

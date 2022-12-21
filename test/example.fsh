@@ -1,3 +1,3 @@
-RuleSet: Name(as\)df)
-* name[+].given = "{first}"
-
+ValueSet: CancerDiseaseStatusEvidenceTypeVS
+Id: mcode-cancer-disease-status-evidence-type-vs
+* codes from system asomething where thing = /asdf.*/
