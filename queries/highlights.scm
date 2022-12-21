@@ -34,6 +34,8 @@
 ; "InstanceOf"
 ; "Usage"
 ; "Source"
+; "XPath"
+; "Target"
 ] @keyword
 
 (sd_metadata (parent (name))) @type

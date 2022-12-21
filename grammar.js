@@ -2,6 +2,7 @@ module.exports = grammar({
   name: "fsh",
 
   // extras: ($) => [$.comment, /[\s\p{Zs}\uFEFF\u2060\u200B]/],
+  conflicts: ($) => [[$.path, $.name]],
 
   rules: {
     // TODO:  ruleSet | paramRuleSet
@@ -50,44 +51,91 @@ module.exports = grammar({
         repeat($.sd_rule)
       ),
 
-    // TODO: invariantMetadata+;
-    invariant: ($) => seq("Invariant", token(":"), $.name),
+    invariant: ($) =>
+      seq("Invariant", token(":"), $.name, repeat1($.invariant_metadata)),
 
-    // TODO: instanceMetadata* instanceRule*;
-    instance: ($) => seq("Instance", token(":"), $.name),
+    instance: ($) =>
+      seq(
+        "Instance",
+        token(":"),
+        $.name,
+        repeat($.instance_metadata),
+        repeat($.instance_rule)
+      ),
 
-    // TODO: vsMetadata* vsRule*;
-    valueset: ($) => seq("ValueSet", token(":"), $.name),
+    valueset: ($) =>
+      seq(
+        "ValueSet",
+        token(":"),
+        $.name,
+        repeat($.vs_metadata),
+        repeat($.vs_rule)
+      ),
 
-    // TODO: csMetadata* csRule*;
-    codesystem: ($) => seq("CodeSystem", token(":"), $.name),
+    codesystem: ($) =>
+      seq(
+        "CodeSystem",
+        token(":"),
+        $.name,
+        repeat($.cs_metadata),
+        repeat($.cs_rule)
+      ),
 
-    // TODO: mappingMetadata* mappingEntityRule*;
-    mapping: ($) => seq("Mapping", token(":"), $.name),
+    mapping: ($) =>
+      seq(
+        "Mapping",
+        token(":"),
+        $.name,
+        repeat($.mapping_metadata),
+        repeat($.mapping_entity_rule)
+      ),
 
-    // TODO:  lrRule*;
-    logical: ($) => seq("Logical", token(":"), $.name, repeat($.sd_metadata)),
+    logical: ($) =>
+      seq(
+        "Logical",
+        token(":"),
+        $.name,
+        repeat($.sd_metadata),
+        repeat($.lr_rule)
+      ),
 
-    // TODO:  lrRule*;
-    resource: ($) => seq("Resource", token(":"), $.name, repeat($.sd_metadata)),
+    resource: ($) =>
+      seq(
+        "Resource",
+        token(":"),
+        $.name,
+        repeat($.sd_metadata),
+        repeat($.lr_rule)
+      ),
 
     /* Metadata */
-    // TODO: expression, xpath, target
 
     sd_metadata: ($) => choice($.parent, $.id, $.title, $.description),
-    parent: ($) => seq("Parent", token(":"), $.name),
-    title: ($) => seq("Title", token(":"), $.string),
+    instance_metadata: ($) =>
+      choice($.instance_of, $.title, $.description, $.usage),
+    invariant_metadata: ($) =>
+      choice($.description, $.expression, $.xpath, $.severity),
+    vs_metadata: ($) => choice($.id, $.title, $.description),
+    cs_metadata: ($) => choice($.id, $.title, $.description),
+    mapping_metadata: ($) =>
+      choice($.id, $.source, $.target, $.description, $.title),
+
     description: ($) =>
       seq("Description", token(":"), choice($.string, $.multiline_string)),
+    expression: ($) => seq("Expression", token(":"), $.string),
     id: ($) => seq("Id", token(":"), $.name),
-    severity: ($) => seq("Severity", token(":"), $.code),
     instance_of: ($) => seq("InstanceOf", token(":"), $.name),
-    usage: ($) => seq("Usage", token(":"), $.code),
+    parent: ($) => seq("Parent", token(":"), $.name),
+    severity: ($) => seq("Severity", token(":"), $.code),
     source: ($) => seq("Source", token(":"), $.code),
+    target: ($) => seq("Target", token(":"), $.string),
+    title: ($) => seq("Title", token(":"), $.string),
+    usage: ($) => seq("Usage", token(":"), $.code),
+    xpath: ($) => seq("XPath", token(":"), $.string),
 
     /* Rules */
 
-    // TODO:  flagRule  | onlyRule |   insertRule
+    // TODO:   insertRule
     sd_rule: ($) =>
       choice(
         $.cardinality_rule,
@@ -96,11 +144,31 @@ module.exports = grammar({
         $.contains_rule,
         $.caret_value_rule,
         $.obeys_rule,
-        $.path_rule
+        $.path_rule,
+        $.flag_rule,
+        $.only_rule
       ),
 
-    // TODO: flag
-    cardinality_rule: ($) => seq("*", $.name, $.cardinality),
+    // TODO:   addCRElementRule;
+    lr_rule: ($) => choice($.sd_rule, $.add_element_rule),
+
+    // TODO: vsComponent | insertRule;
+    vs_rule: ($) => choice($.caret_value_rule),
+
+    // TODO: concept |  codeInsertRule;
+    cs_rule: ($) => choice($.code_caret_value_rule),
+
+    // TODO: insertRule
+    instance_rule: ($) => choice($.fixed_value_rule, $.path_rule),
+
+    // TODO: insertRule
+    mapping_entity_rule: ($) => choice($.mapping_rule, $.path_rule),
+
+    // TODO:
+    // insertRule:         STAR path? KW_INSERT (RULESET_REFERENCE | PARAM_RULESET_REFERENCE);
+    // codeInsertRule:     STAR CODE* KW_INSERT (RULESET_REFERENCE | PARAM_RULESET_REFERENCE);
+    // addCRElementRule:   STAR path CARD flag* KW_CONTENTREFERENCE (SEQUENCE | CODE) STRING (STRING | MULTILINE_STRING)?;
+    cardinality_rule: ($) => seq("*", $.name, $.cardinality, repeat($.flag)),
 
     valueset_rule: ($) =>
       seq("*", $.path, "from", $.name, optional($.strength)),
@@ -114,10 +182,41 @@ module.exports = grammar({
     caret_value_rule: ($) =>
       seq("*", optional($.path), $.caret_path, "=", $.value),
 
+    // TODO: code should be repeatable, but causes conflicts
+    code_caret_value_rule: ($) => seq("*", $.code, $.caret_path, "=", $.value),
+
     obeys_rule: ($) =>
       seq("*", optional($.path), "obeys", $.name, repeat(seq("and", $.name))),
 
     path_rule: ($) => seq("*", $.path),
+
+    flag_rule: ($) =>
+      seq("*", $.path, repeat(seq("and", $.path)), repeat1($.flag)),
+
+    only_rule: ($) =>
+      seq("*", $.path, "only", $.target_type, repeat(seq("or", $.target_type))),
+
+    mapping_rule: ($) =>
+      seq(
+        "*",
+        optional($.path),
+        "->",
+        $.string,
+        optional($.string),
+        optional($.code)
+      ),
+
+    add_element_rule: ($) =>
+      seq(
+        "*",
+        $.path,
+        $.cardinality,
+        repeat($.flag),
+        $.target_type,
+        repeat(seq("or", $.target_type)),
+        $.string,
+        optional(choice($.string, $.multiline_string))
+      ),
 
     //TODO: CONCEPT_STR
     code: ($) =>
@@ -133,7 +232,7 @@ module.exports = grammar({
 
     caret_path: ($) => seq(token("^"), $.sequence),
 
-    // TODO: | NUMBER | KW_MS | KW_SU | KW_TU | KW_NORMATIVE | KW_DRAFT | KW_CODES | KW_VSREFERENCE | KW_SYSTEM;
+    // TODO: | N[+\-]? [0-9]+('.' [0-9]+)?UMBER | KW_MS | KW_SU | KW_TU | KW_NORMATIVE | KW_DRAFT | KW_CODES | KW_VSREFERENCE | KW_SYSTEM;
     name: ($) => choice($.sequence),
 
     cardinality: () =>
@@ -173,21 +272,71 @@ module.exports = grammar({
         )
       ),
 
+    number: () => /[+-]?[0-9]+(\.[0-9]+)?/,
+
+    date: () => /[0-9][0-9][0-9][0-9](-[0-9][0-9](-[0-9][0-9])?)?/,
+
+    time: () =>
+      /[0-9][0-9](:[0-9][0-9](:[0-9][0-9](\.[0-9]+)?)?)?(Z|(\+|-)[0-9][0-9]:[0-9][0-9])?/,
+
+    datetime: ($) => seq($.date, optional(seq(token("T"), $.time))),
+
+    unit: () => seq("'", repeat(/[^\\']/), "'"),
+
+    quantity: ($) => seq($.number, choice($.unit, $.code), optional($.string)),
+
+    ratio_part: ($) => choice($.number, $.quantity),
+
+    ratio: ($) => seq($.ratio_part, token(":"), $.ratio_part),
+
+    bool: () => choice("true", "false"),
+
     path: ($) => choice($.sequence, "system"),
+
     strength: () =>
       seq("(", choice("example", "preferred", "extensible", "required"), ")"),
 
-    // TODO:  NUMBER | DATETIME | TIME | reference | canonical | quantity | ratio | bool
+    reference: ($) =>
+      seq("Reference", "(", $.sequence, repeat(seq("or", $.sequence)), ")"),
+
+    canonical: ($) =>
+      seq(
+        "Canonical",
+        "(",
+        $.sequence,
+        optional(seq(token("|"), $.sequence)),
+        repeat(seq("or", $.sequence, optional(seq(token("|"), $.sequence)))),
+        ")"
+      ),
+
     value: ($) =>
       choice(
+        $.quantity, // TODO: 7 'days' shows up as name, not quantity :/
+        $.number,
         $.name,
         $.string,
         $.multiline_string,
-        seq($.code, optional($.string))
+        seq($.code, optional($.string)),
+        $.datetime,
+        $.time,
+        $.ratio,
+        $.bool,
+        seq($.reference, optional($.string)),
+        $.canonical
       ),
 
-    // TODO: flag
-    item: ($) => seq($.name, optional(seq("named", $.name)), $.cardinality),
+    item: ($) =>
+      seq(
+        $.name,
+        optional(seq("named", $.name)),
+        $.cardinality,
+        repeat($.flag)
+      ),
+
+    flag: () => choice("?!", "MS", "SU", "TU", "N", "D"),
+
+    target_type: ($) =>
+      choice($.name, alias($.reference, $.reference_type), $.canonical),
 
     /* Comments */
     comment: () =>
