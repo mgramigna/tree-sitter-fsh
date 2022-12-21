@@ -15,7 +15,6 @@ module.exports = grammar({
   ],
 
   rules: {
-    // TODO:  paramRuleSet
     doc: ($) =>
       repeat(
         choice(
@@ -29,7 +28,8 @@ module.exports = grammar({
           $.mapping,
           $.logical,
           $.resource,
-          $.rule_set
+          $.rule_set,
+          $.param_rule_set
         )
       ),
 
@@ -127,6 +127,14 @@ module.exports = grammar({
         repeat1($.rule_set_rule)
       ),
 
+    param_rule_set: ($) =>
+      seq(
+        "RuleSet",
+        token(":"),
+        $.param_rule_set_reference,
+        repeat1(alias($.rule_set_rule, $.param_rule_set_content))
+      ),
+
     /* Metadata */
 
     sd_metadata: ($) => choice($.parent, $.id, $.title, $.description),
@@ -209,22 +217,26 @@ module.exports = grammar({
         optional(choice($.string, $.multiline_string))
       ),
 
-    // TODO: PARAM_RULESET_REFERENCE escape characters
     code_insert_rule: ($) =>
       seq(
         "*",
         repeat($.code),
         "insert",
-        choice(alias($.sequence, $.rule_set_reference))
+        choice(
+          alias($.sequence, $.rule_set_reference),
+          $.param_rule_set_reference
+        )
       ),
 
-    // TODO: PARAM_RULESET_REFERENCE escape characters
     insert_rule: ($) =>
       seq(
         "*",
         optional($.path),
         "insert",
-        choice(alias($.sequence, $.rule_set_reference))
+        choice(
+          alias($.sequence, $.rule_set_reference),
+          $.param_rule_set_reference
+        )
       ),
 
     valueset_rule: ($) =>
@@ -467,6 +479,12 @@ module.exports = grammar({
 
     target_type: ($) =>
       choice($.name, alias($.reference, $.reference_type), $.canonical),
+
+    param_rule_set_params: () =>
+      repeat1(choice(/\\\(|\\\)|\\,/, /[^ \t\r\n\f\u00A0]/)),
+
+    param_rule_set_reference: ($) =>
+      seq($.sequence, "(", $.param_rule_set_params, ")"),
 
     /* Comments */
     comment: () =>

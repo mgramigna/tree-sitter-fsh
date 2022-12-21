@@ -1,2 +1,3 @@
-CodeSystem: asdf
-* #status "asdf" """asdf"""
+RuleSet: Name(as\)df)
+* name[+].given = "{first}"
+

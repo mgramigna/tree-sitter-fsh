@@ -238,6 +238,10 @@
           "named": true
         },
         {
+          "type": "param_rule_set_reference",
+          "named": true
+        },
+        {
           "type": "rule_set_reference",
           "named": true
         }
@@ -459,6 +463,10 @@
           "named": true
         },
         {
+          "type": "param_rule_set",
+          "named": true
+        },
+        {
           "type": "profile",
           "named": true
         },
@@ -581,6 +589,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "param_rule_set_reference",
+          "named": true
+        },
         {
           "type": "path",
           "named": true
@@ -966,6 +978,92 @@
         },
         {
           "type": "target_type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "param_rule_set",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "param_rule_set_content",
+          "named": true
+        },
+        {
+          "type": "param_rule_set_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "param_rule_set_content",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "add_cre_element_rule",
+          "named": true
+        },
+        {
+          "type": "add_element_rule",
+          "named": true
+        },
+        {
+          "type": "code_caret_value_rule",
+          "named": true
+        },
+        {
+          "type": "code_insert_rule",
+          "named": true
+        },
+        {
+          "type": "concept",
+          "named": true
+        },
+        {
+          "type": "mapping_rule",
+          "named": true
+        },
+        {
+          "type": "sd_rule",
+          "named": true
+        },
+        {
+          "type": "vs_component",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "param_rule_set_params",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "param_rule_set_reference",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "param_rule_set_params",
+          "named": true
+        },
+        {
+          "type": "sequence",
           "named": true
         }
       ]

@@ -49,6 +49,10 @@
           {
             "type": "SYMBOL",
             "name": "rule_set"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "param_rule_set"
           }
         ]
       }
@@ -425,6 +429,38 @@
           "content": {
             "type": "SYMBOL",
             "name": "rule_set_rule"
+          }
+        }
+      ]
+    },
+    "param_rule_set": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "RuleSet"
+        },
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": ":"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "param_rule_set_reference"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "rule_set_rule"
+            },
+            "named": true,
+            "value": "param_rule_set_content"
           }
         }
       ]
@@ -1059,6 +1095,10 @@
               },
               "named": true,
               "value": "rule_set_reference"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "param_rule_set_reference"
             }
           ]
         }
@@ -1098,6 +1138,10 @@
               },
               "named": true,
               "value": "rule_set_reference"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "param_rule_set_reference"
             }
           ]
         }
@@ -2675,6 +2719,43 @@
         {
           "type": "SYMBOL",
           "name": "canonical"
+        }
+      ]
+    },
+    "param_rule_set_params": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "\\\\\\(|\\\\\\)|\\\\,"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[^ \\t\\r\\n\\f\\u00A0]"
+          }
+        ]
+      }
+    },
+    "param_rule_set_reference": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "sequence"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "param_rule_set_params"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
         }
       ]
     },
