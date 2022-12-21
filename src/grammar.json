@@ -1907,6 +1907,42 @@
         {
           "type": "SYMBOL",
           "name": "sequence"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "STRING",
+          "value": "MS"
+        },
+        {
+          "type": "STRING",
+          "value": "SU"
+        },
+        {
+          "type": "STRING",
+          "value": "TU"
+        },
+        {
+          "type": "STRING",
+          "value": "N"
+        },
+        {
+          "type": "STRING",
+          "value": "D"
+        },
+        {
+          "type": "STRING",
+          "value": "codes"
+        },
+        {
+          "type": "STRING",
+          "value": "valueset"
+        },
+        {
+          "type": "STRING",
+          "value": "system"
         }
       ]
     },
@@ -2593,6 +2629,10 @@
     ],
     [
       "sequence"
+    ],
+    [
+      "value",
+      "name"
     ]
   ],
   "precedences": [],

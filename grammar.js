@@ -4,7 +4,7 @@ module.exports = grammar({
   // extras: ($) => [$.comment, /[\s\p{Zs}\uFEFF\u2060\u200B]/],
 
   // TODO: look at sequence conflict
-  conflicts: ($) => [[$.path, $.name], [$.sequence]],
+  conflicts: ($) => [[$.path, $.name], [$.sequence], [$.value, $.name]],
 
   rules: {
     // TODO:  ruleSet | paramRuleSet
@@ -311,8 +311,19 @@ module.exports = grammar({
 
     caret_path: ($) => seq(token("^"), $.sequence),
 
-    // TODO: | N[+\-]? [0-9]+('.' [0-9]+)?UMBER | KW_MS | KW_SU | KW_TU | KW_NORMATIVE | KW_DRAFT | KW_CODES | KW_VSREFERENCE | KW_SYSTEM;
-    name: ($) => choice($.sequence),
+    name: ($) =>
+      choice(
+        $.sequence,
+        $.number,
+        "MS",
+        "SU",
+        "TU",
+        "N",
+        "D",
+        "codes",
+        "valueset",
+        "system"
+      ),
 
     cardinality: () =>
       seq(
