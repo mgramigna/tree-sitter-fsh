@@ -341,12 +341,14 @@ module.exports = grammar({
 
     /* Misc */
 
-    //TODO: CONCEPT_STR
     code: ($) =>
       seq(
         optional(alias($.sequence, $.code_system)),
         token("#"),
-        alias(choice($.sequence), $.code_value)
+        choice(
+          alias($.string, $.concept_string),
+          alias($.sequence, $.code_value)
+        )
       ),
 
     concept: ($) =>

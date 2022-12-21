@@ -1942,18 +1942,27 @@
           }
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "string"
+              },
+              "named": true,
+              "value": "concept_string"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
                 "type": "SYMBOL",
                 "name": "sequence"
-              }
-            ]
-          },
-          "named": true,
-          "value": "code_value"
+              },
+              "named": true,
+              "value": "code_value"
+            }
+          ]
         }
       ]
     },

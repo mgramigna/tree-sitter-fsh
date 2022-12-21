@@ -198,6 +198,10 @@
         {
           "type": "code_value",
           "named": true
+        },
+        {
+          "type": "concept_string",
+          "named": true
         }
       ]
     }
@@ -318,6 +322,25 @@
         },
         {
           "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "concept_string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "double_quote_string_fragment",
+          "named": true
+        },
+        {
+          "type": "escape_sequence",
           "named": true
         }
       ]
