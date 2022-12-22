@@ -78,3 +78,4 @@
 (bool) @constant.boolean
 (flag) @constant
 (code_value) @parameter
+(fsh_comment) @comment
