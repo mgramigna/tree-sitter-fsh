@@ -42,7 +42,7 @@ module.exports = grammar({
         token(":"),
         alias($.sequence, $.alias_name),
         token("="),
-        choice($.sequence)
+        $.sequence
       ),
 
     profile: ($) =>
