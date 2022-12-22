@@ -73,10 +73,10 @@
 
 (sd_metadata (parent (name))) @type
 (target_type (name)) @type
-(string) @string
-(multiline_string) @string
+(string) @string @spell
+(multiline_string) @string @spell
 (strength_value) @constant
 (bool) @constant.boolean
 (flag) @constant
 (code_value) @parameter
-(fsh_comment) @comment
+(fsh_comment) @comment @spell
