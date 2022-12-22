@@ -30,12 +30,12 @@
 "Title"
 "Description"
 "Id"
-; "Severity"
-; "InstanceOf"
-; "Usage"
-; "Source"
-; "XPath"
-; "Target"
+"Severity"
+"InstanceOf"
+"Usage"
+"Source"
+"XPath"
+"Target"
 ] @keyword
 
 (sd_metadata (parent (name))) @type
