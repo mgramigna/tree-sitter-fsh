@@ -1300,8 +1300,15 @@
           "value": "*"
         },
         {
-          "type": "SYMBOL",
-          "name": "code"
+          "type": "REPEAT",
+          "content": {
+            "type": "PREC_LEFT",
+            "value": 1,
+            "content": {
+              "type": "SYMBOL",
+              "name": "code"
+            }
+          }
         },
         {
           "type": "SYMBOL",
@@ -2947,6 +2954,10 @@
       "code_insert_rule",
       "concept",
       "code_string"
+    ],
+    [
+      "caret_value_rule",
+      "code_caret_value_rule"
     ]
   ],
   "precedences": [],

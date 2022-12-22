@@ -12,6 +12,7 @@ module.exports = grammar({
     [$.insert_rule, $.code_insert_rule],
     [$.code_insert_rule, $.code_string],
     [$.code_insert_rule, $.concept, $.code_string],
+    [$.caret_value_rule, $.code_caret_value_rule],
   ],
 
   rules: {
@@ -251,8 +252,8 @@ module.exports = grammar({
     caret_value_rule: ($) =>
       seq("*", optional($.path), $.caret_path, "=", $.value),
 
-    // TODO: code should be repeatable, but causes conflicts
-    code_caret_value_rule: ($) => seq("*", $.code, $.caret_path, "=", $.value),
+    code_caret_value_rule: ($) =>
+      seq("*", repeat(prec.left(1, $.code)), $.caret_path, "=", $.value),
 
     obeys_rule: ($) =>
       seq("*", optional($.path), "obeys", $.name, repeat(seq("and", $.name))),
@@ -324,7 +325,6 @@ module.exports = grammar({
 
     vs_from_system: ($) => seq("system", $.name),
 
-    // TODO: should this be prec.left?
     vs_from_valueset: ($) =>
       prec.left(1, seq("valueset", $.name, repeat(seq("and", $.name)))),
 
