@@ -2435,25 +2435,30 @@
           "value": "("
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "example"
-            },
-            {
-              "type": "STRING",
-              "value": "preferred"
-            },
-            {
-              "type": "STRING",
-              "value": "extensible"
-            },
-            {
-              "type": "STRING",
-              "value": "required"
-            }
-          ]
+          "type": "ALIAS",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "example"
+              },
+              {
+                "type": "STRING",
+                "value": "preferred"
+              },
+              {
+                "type": "STRING",
+                "value": "extensible"
+              },
+              {
+                "type": "STRING",
+                "value": "required"
+              }
+            ]
+          },
+          "named": true,
+          "value": "strength_value"
         },
         {
           "type": "STRING",

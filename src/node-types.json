@@ -1523,7 +1523,17 @@
   {
     "type": "strength",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "strength_value",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "string",
@@ -2182,15 +2192,7 @@
     "named": false
   },
   {
-    "type": "example",
-    "named": false
-  },
-  {
     "type": "exclude",
-    "named": false
-  },
-  {
-    "type": "extensible",
     "named": false
   },
   {
@@ -2230,16 +2232,12 @@
     "named": false
   },
   {
-    "type": "preferred",
-    "named": false
-  },
-  {
     "type": "regex_pattern",
     "named": true
   },
   {
-    "type": "required",
-    "named": false
+    "type": "strength_value",
+    "named": true
   },
   {
     "type": "system",

@@ -441,8 +441,15 @@ module.exports = grammar({
 
     path: ($) => choice($.sequence, "system"),
 
-    strength: () =>
-      seq("(", choice("example", "preferred", "extensible", "required"), ")"),
+    strength: ($) =>
+      seq(
+        "(",
+        alias(
+          choice("example", "preferred", "extensible", "required"),
+          $.strength_value
+        ),
+        ")"
+      ),
 
     reference: ($) =>
       seq("Reference", "(", $.sequence, repeat(seq("or", $.sequence)), ")"),
