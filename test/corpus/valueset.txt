@@ -1,0 +1,17 @@
+========
+ValueSet
+========
+
+ValueSet: TestVS
+Description: "Test ValueSet"
+
+---
+
+(doc
+  (valueset
+    (name
+      (sequence))
+    (vs_metadata
+      (description
+        (string
+          (double_quote_string_fragment))))))

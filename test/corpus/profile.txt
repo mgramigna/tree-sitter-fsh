@@ -1,0 +1,23 @@
+=======
+Profile
+=======
+
+Profile: TestProf
+Id: test-prof
+* examplePath 1..1
+
+---
+
+(doc
+  (profile
+    (name
+      (sequence))
+    (sd_metadata
+      (id
+        (name
+          (sequence))))
+    (sd_rule
+      (cardinality_rule
+        (name
+          (sequence))
+        (cardinality)))))

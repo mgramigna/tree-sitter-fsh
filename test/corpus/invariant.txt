@@ -1,0 +1,17 @@
+=========
+Invariant
+=========
+
+Invariant: TestInv
+Description: "Test Invariant"
+
+---
+
+(doc
+  (invariant
+    (name
+      (sequence))
+    (invariant_metadata
+      (description
+        (string
+          (double_quote_string_fragment))))))

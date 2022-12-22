@@ -1,0 +1,17 @@
+========
+CodeSystem
+========
+
+CodeSystem: TestCS
+Description: "Test CodeSystem"
+
+---
+
+(doc
+  (codesystem
+    (name
+      (sequence))
+    (cs_metadata
+      (description
+        (string
+          (double_quote_string_fragment))))))

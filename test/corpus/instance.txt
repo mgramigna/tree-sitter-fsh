@@ -1,0 +1,17 @@
+========
+Instance
+========
+
+Instance: TestInst
+Description: "Test Instance"
+
+---
+
+(doc
+  (instance
+    (name
+      (sequence))
+    (instance_metadata
+      (description
+        (string
+          (double_quote_string_fragment))))))

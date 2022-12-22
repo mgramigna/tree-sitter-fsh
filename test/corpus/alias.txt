@@ -1,23 +1,16 @@
-=======
-Aliases
-=======
+=====
+Alias
+=====
 
-Alias: name = system#code
-Alias: name = #code
-Alias: name = code
+Alias: ex = value
+Alias: $EX = http://example.com
 
 ---
 
 (doc
   (alias
     (alias_name)
-    (code 
-      (code_system)
-      (code_value)))
+    (sequence))
   (alias
-      (alias_name)
-      (code 
-        (code_value)))
-  (alias
-      (alias_name)
-      (sequence)))
+    (alias_name)
+    (sequence (url))))
