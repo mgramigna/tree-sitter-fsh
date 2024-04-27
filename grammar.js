@@ -10,7 +10,6 @@ module.exports = grammar({
     [$.sequence],
     [$.value, $.name],
     [$.insert_rule, $.code_insert_rule],
-    [$.code_insert_rule, $.code_string],
     [$.code_insert_rule, $.concept, $.code_string],
     [$.caret_value_rule, $.code_caret_value_rule],
   ],
@@ -415,7 +414,7 @@ module.exports = grammar({
             /[0-7]{1,3}/,
             /x[0-9a-fA-F]{2}/,
             /u[0-9a-fA-F]{4}/,
-            /u{[0-9a-fA-F]+}/
+            /u\{[0-9a-fA-F]+\}/
           )
         )
       ),
